@@ -55,19 +55,20 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-        <div className="bg-white p-4 rounded shadow-sm mb-8 md:col-span-3 lg:col-span-3">
-          <h2 className="text-xl font-semibold mb-4">Development Activity</h2>
-          <div className="flex items-center gap-1">
-            <div className="bg-blue-700 text-white w-3 h-3"></div>
-            <p>
-              Purchases
-            </p>
-          </div>
-          <div className="w-full rounded mb-4">
-            <LineChartComponent />
-          </div>
-          <div className="overflow-x-auto">
-            <Table />
+        <div className="bg-white rounded shadow-sm mb-8 md:col-span-3 lg:col-span-3">
+          <h2 className="text-lg font-semibold p-4 ">Development Activity</h2>
+          <hr />
+          <div className="p-4">
+            <div className="flex items-center gap-1 mx-3">
+              <div className="bg-blue-700 text-white w-3 h-3"></div>
+              <p>Purchases</p>
+            </div>
+            <div className="w-full rounded mb-4">
+              <LineChartComponent />
+            </div>
+            <div className="overflow-x-scroll ">
+              <Table />
+            </div>
           </div>
         </div>
         <div className="md:col-span-3 lg:col-span-3">
