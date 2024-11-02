@@ -40,7 +40,7 @@ const MobileNavigation: React.FC = () => {
       </div>
       <div
         className={`transition-all duration-500 ease-in-out overflow-hidden ${
-          isMobileMenuOpen ? "max-h-screen" : "max-h-0"
+          isMobileMenuOpen ? "max-h-screen landscape:max-h-[1000px]" : "max-h-0"
         }`}
       >
         <div className="mt-4 space-y-2">

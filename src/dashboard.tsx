@@ -66,7 +66,7 @@ const Dashboard: React.FC = () => {
             <div className="w-full rounded mb-4">
               <LineChartComponent />
             </div>
-            <div className="overflow-x-scroll ">
+            <div className="overflow-x-auto ">
               <Table />
             </div>
           </div>

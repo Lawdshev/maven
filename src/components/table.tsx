@@ -26,7 +26,7 @@ const activities: Activity[] = Array(5)
 
 const Table = () => {
   return (
-    <table className="w-full text-sm text-gray-500">
+    <table className="w-full min-w-[600px] text-sm text-gray-500">
       <thead>
         <tr>
           <th className="text-left p-2">User</th>
@@ -44,7 +44,7 @@ const Table = () => {
             <td className="p-2">{activity.commit}</td>
             <td className="p-2">{activity.date}</td>
             <td className="p-2">
-              <FaTrash  />
+              <FaTrash />
             </td>
           </tr>
         ))}
