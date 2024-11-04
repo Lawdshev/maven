@@ -1,6 +1,7 @@
 import React from "react";
 import { FaRegBell, FaUserCircle } from "react-icons/fa";
 import tablerLogo from "../assets/tabler(2).svg";
+import { getRandomName } from "../utils/helpers";
 
 const Header: React.FC = () => {
   return (
@@ -19,7 +20,7 @@ const Header: React.FC = () => {
         <div className="flex items-center space-x-2">
           <FaUserCircle className="w-6 h-6 md:w-8 md:h-8 text-gray-700" />
           <div className="flex flex-col text-gray-700 font-medium text-sm md:text-base">
-            <span>Jane Pearson</span>
+            <span>{getRandomName()}</span>
             <span className="text-gray-500 text-xs md:text-sm">
               Administrator
             </span>

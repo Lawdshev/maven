@@ -1,19 +1,19 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import {
   ResponsiveContainer,
   PieChart,
   Cell,
   Pie,
+  Tooltip,
 } from "recharts";
+import { RootState } from "../redux/store";
 
-const data = [
-  { name: "Jan", value: 40 },
-  { name: "Feb", value: 30 },
-  { name: "mar", value: 20 },
-  { name: "apr", value: 10 },
-];
 
 const PieChartComponent: React.FC = () => {
+   const data =
+     useSelector((state: RootState) => state.data?.chartSections?.sales) ??
+     [];
   const COLORS = ["#1c3353", "#477fcf", "#7ea5dd", "#c8d9f1"];
 
   return (
@@ -27,13 +27,15 @@ const PieChartComponent: React.FC = () => {
             cx="45%"
             cy="50%"
             innerRadius={0}
-            outerRadius="100%"
+            outerRadius="85%"
             fill="#8884d8"
+            label
           >
             {data.map((entry, index) => (
               <Cell key={index} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
+          <Tooltip />
         </PieChart>
       </ResponsiveContainer>
     </div>

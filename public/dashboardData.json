@@ -1,0 +1,203 @@
+{
+  "metrics": [
+    {
+      "label": "New Tickets",
+      "value": 43,
+      "change": 6,
+      "up": true
+    },
+    {
+      "label": "Closed Today",
+      "value": 17,
+      "change": -3,
+      "up": false
+    },
+    {
+      "label": "New Replies",
+      "value": 7,
+      "change": 9,
+      "up": true
+    },
+    {
+      "label": "Followers",
+      "value": 273,
+      "change": 3,
+      "up": true
+    },
+    {
+      "label": "Daily Earnings",
+      "value": 1000,
+      "change": -2,
+      "up": false
+    },
+    {
+      "label": "Products",
+      "value": 60,
+      "change": -1,
+      "up": false
+    }
+  ],
+  "developmentActivity": {
+    "chartData": [
+      {
+        "date": "2024-11-01",
+        "value": 30
+      },
+      {
+        "date": "2024-11-02",
+        "value": 20
+      },
+      {
+        "date": "2024-11-03",
+        "value": 40
+      },
+      {
+        "date": "2024-11-04",
+        "value": 50
+      },
+      {
+        "date": "2024-11-05",
+        "value": 30
+      },
+      {
+        "date": "2024-11-06",
+        "value": 20
+      },
+      {
+        "date": "2024-11-07",
+        "value": 40
+      }
+    ],
+    "tableData": [
+      {
+        "user": "Ronald Bradley",
+        "commitMessage": "Initial commit 0",
+        "date": "2024-11-03",
+        "actions": [
+          "delete"
+        ]
+      },
+      {
+        "user": "Russell Gibson",
+        "commitMessage": "Main structure 1",
+        "date": "2024-11-02",
+        "actions": [
+          "delete"
+        ]
+      },
+      {
+        "user": "Linda Brown",
+        "commitMessage": "Add documentation 2",
+        "date": "2024-11-05",
+        "actions": [
+          "delete"
+        ]
+      },
+      {
+        "user": "Michael Davis",
+        "commitMessage": "Fix bugs 3",
+        "date": "2024-11-06",
+        "actions": [
+          "delete"
+        ]
+      },
+      {
+        "user": "Patricia White",
+        "commitMessage": "Add API 4",
+        "date": "2024-11-07",
+        "actions": [
+          "delete"
+        ]
+      }
+    ]
+  },
+  "chartSections": {
+    "feedbacks": [
+      {
+        "id": 1,
+        "user": "John Doe",
+        "comment": "Excellent service and friendly staff!",
+        "rating": 5,
+        "time": "2 hours ago"
+      },
+      {
+        "id": 2,
+        "user": "Jane Smith",
+        "comment": "The product quality was decent.",
+        "rating": 4,
+        "time": "1 day ago"
+      },
+      {
+        "id": 3,
+        "user": "Mike Johnson",
+        "comment": "Could be improved in some areas.",
+        "rating": 3,
+        "time": "3 days ago"
+      },
+      {
+        "id": 4,
+        "user": "Emily Davis",
+        "comment": "The delivery was fast and efficient.",
+        "rating": 5
+      }
+    ],
+    "profits": [
+      {
+        "date": "Mon",
+        "profit": 1500
+      },
+      {
+        "date": "Tue",
+        "profit": 1800
+      },
+      {
+        "date": "Wed",
+        "profit": 1650
+      },
+      {
+        "date": "Thu",
+        "profit": 2100
+      },
+      {
+        "date": "Fri",
+        "profit": 1900
+      },
+      {
+        "date": "Sat",
+        "profit": 2300
+      },
+      {
+        "date": "Sun",
+        "profit": 2400
+      }
+    ],
+    "revenue": [
+      {
+        "name": "Profit",
+        "value": 63.0
+      },
+      {
+        "name": "Cost",
+        "value": 37.0
+      }
+    ],
+    "sales": [
+      {
+        "name": "North America",
+        "value": 40
+      },
+      {
+        "name": "Europe",
+        "value": 30
+      },
+      {
+        "name": "Asia",
+        "value": 20
+      },
+      {
+        "name": "South America",
+        "value": 10
+      }
+    ]
+  }
+}

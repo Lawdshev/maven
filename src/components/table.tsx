@@ -1,30 +1,19 @@
-import React from "react";
 import { FaTrash } from "react-icons/fa";
-interface Activity {
-  user: string;
-  commit: string;
-  date: string;
-}
-
-const activities: Activity[] = Array(5)
-  .fill(null)
-  .map((_, i) => ({
-    user: `${["Ronald", "Russell", "Beverly"][i % 3]} ${
-      ["Bradley", "Gibson", "Armstrong"][i % 3]
-    }`,
-    commit: `${
-      ["Initial commit", "Main structure", "Left sidebar adjustments"][i % 3]
-    } ${i}`,
-    date: new Date(Date.now() - i * 24 * 60 * 60 * 1000)
-      .toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      })
-      .replace(",", ""),
-  }));
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../redux/store";
+import { deleteTableRow } from "../redux/actions";
 
 const Table = () => {
+  const dispatch = useDispatch();
+   const tableData =
+     useSelector(
+       (state: RootState) => state.data?.developmentActivity.tableData
+     ) ?? [];
+
+  const handleDelete = (userName: string, commitMessage: string) => {
+    dispatch(deleteTableRow(userName, commitMessage));
+  };
+  
   return (
     <table className="w-full min-w-[600px] text-sm text-gray-500">
       <thead>
@@ -35,15 +24,24 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        {activities.map((activity, index) => (
+        {
+          tableData?.length === 0 && (
+            <tr>
+              <td colSpan={4} className="text-center p-2 py-24 text-gray-500 italic">
+                No data available
+              </td>
+            </tr>
+          )
+        }
+        { tableData?.length > 0 && tableData?.map((activity, index) => (
           <tr key={index} className="border-b ">
             <td className="p-2 flex items-center">
               <div className="w-8 h-8 bg-gray-300 rounded-full mr-2"></div>
               {activity.user}
             </td>
-            <td className="p-2">{activity.commit}</td>
+            <td className="p-2">{activity.commitMessage}</td>
             <td className="p-2">{activity.date}</td>
-            <td className="p-2">
+            <td className="p-2 cursor-pointer" onClick={() => handleDelete(activity.user, activity.commitMessage)}>
               <FaTrash />
             </td>
           </tr>
