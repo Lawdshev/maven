@@ -6,6 +6,12 @@ import { RootState } from "../redux/store";
 
 const Header: React.FC = () => {
   const profile = useSelector((state: RootState) => state.profile);
+
+  const handleLogout = () => { 
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    window.location.href = "/login";
+  }
   
   return (
     <header className="bg-white border-b border-gray-200 p-4 hidden md:flex justify-between items-center lg:px-16 px-8">
@@ -13,8 +19,8 @@ const Header: React.FC = () => {
         <img src={tablerLogo} alt="Tabler Logo" className="w-20 md:w-28" />
       </div>
       <div className="hidden md:flex items-center space-x-8">
-        <button className="text-[#0054a6] border border-[#0054a6] px-2 py-1 rounded text-sm md:text-base">
-          Source code
+        <button className="text-[#0054a6] border border-[#0054a6] px-2 py-1 rounded text-sm md:text-base" onClick={handleLogout}>
+          Logout
         </button>
         <button className="relative text-gray-700 hover:text-[#0054a6]">
           <FaRegBell className="w-4 h-4 md:w-5 md:h-5" />
