@@ -104,7 +104,6 @@ function* handleGetProfile() {
         api.get,
         urls.getProfile(),
       );
-      console.log(response);
       yield put(setProfileData(response.data));  
     } catch (error: any) {
       console.error("Register error:", error.response);

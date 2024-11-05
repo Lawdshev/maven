@@ -1,13 +1,12 @@
 import React from "react";
 import { FaRegBell, FaUserCircle } from "react-icons/fa";
 import tablerLogo from "../assets/tabler(2).svg";
-import { getRandomName } from "../utils/helpers";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 const Header: React.FC = () => {
   const profile = useSelector((state: RootState) => state.profile);
-
+  
   return (
     <header className="bg-white border-b border-gray-200 p-4 hidden md:flex justify-between items-center lg:px-16 px-8">
       <div className="flex items-center">
