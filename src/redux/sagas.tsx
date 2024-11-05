@@ -67,7 +67,7 @@ function* handleLogin(action: ReturnType<typeof loginRequest>) {
     console.error("Login error:", error);
     yield put({
       type: LOGIN_FAILURE,
-      payload: error.message || "Login failed",
+      payload: error?.response?.data?.error || "Login failed",
     });
   } finally {
     yield put(setLoading(false));
