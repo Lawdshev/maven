@@ -1,19 +1,22 @@
 import React from "react";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
-import LineChartComponent from "./components/linechart";
-import PieChartComponent from "./components/piechart";
-import DoughnutChartComponent from "./components/doughnutChart";
-import Table from "./components/table";
+import LineChartComponent from "../components/linechart";
+import PieChartComponent from "../components/piechart";
+import DoughnutChartComponent from "../components/doughnutChart";
+import Table from "../components/table";
 import { useSelector } from "react-redux";
-import { RootState } from "./redux/store";
-import NewFeedbacksComponent from "./components/feedbacks";
-import TodayProfit from "./components/todayProfit";
-import UpdateButton from "./components/updateButton";
-import { formatCurrency } from "./utils/helpers";
+import { RootState } from "../redux/store";
+import NewFeedbacksComponent from "../components/feedbacks";
+import TodayProfit from "../components/todayProfit";
+import UpdateButton from "../components/updateButton";
+import { formatCurrency } from "../utils/helpers";
 
 const Dashboard: React.FC = () => {
   const metrics = useSelector((state: RootState) => state.data?.metrics);
-  const lineChartData = useSelector((state: RootState) => state.data?.developmentActivity.chartData)??[];
+  const lineChartData =
+    useSelector(
+      (state: RootState) => state.data?.developmentActivity.chartData
+    ) ?? [];
 
   return (
     <div className="p-2 md:p-5 px-3 lg:px-16 bg-gray-100 ">

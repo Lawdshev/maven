@@ -9,122 +9,132 @@ import {
 import { DashboardData } from "./types";
 import {
   setDashboardData,
+  setLoading,
   FETCH_DASHBOARD_DATA,
   GENERATE_NEW_DATA,
-  setLoading,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  loginRequest,
+  LOGIN_REQUEST,
+  registerRequest,
+  REGISTER_REQUEST,
+  REGISTER_FAILURE,
+  setProfileData,
+  GET_PROFILE_REQUEST,
 } from "./actions";
-import { getRandomName } from "../utils/helpers";
+import api from "../service/api";
+import urls from "../service/urls";
+import { DashboardResponse, LoginResponse, ProfileResponse, RegisterResponse } from "../utils/types";
 
+// Fetch dashboard data
 function* fetchDashboardDataSaga() {
   try {
-    yield put(setLoading(true));
     yield delay(500);
-    const response: Response = yield call(fetch, "/dashboardData.json");
-    const data: DashboardData = yield response.json();
+    const response: DashboardResponse = yield call(
+      api.get,
+      urls.getDashboardData()
+    );
+    const data: DashboardData = yield response.data;
     yield put(setDashboardData(data));
-    yield put(setLoading(false));
   } catch (error) {
     console.error("Error fetching dashboard data:", error);
   }
 }
 
-function* handleGenerateNewData() {
-  yield put(setLoading(true));
-  yield delay(500);
-  const newData = {
-    metrics: [
-      {
-        label: "New Tickets",
-        value: Math.floor(Math.random() * 100),
-        change: Math.floor(Math.random() * 21 - 10),
-        up: Math.random() > 0.5,
-      },
-      {
-        label: "Closed Today",
-        value: Math.floor(Math.random() * 50),
-        change: Math.floor(Math.random() * 21 - 10),
-        up: Math.random() > 0.5,
-      },
-      {
-        label: "New Replies",
-        value: Math.floor(Math.random() * 20),
-        change: Math.floor(Math.random() * 21 - 10),
-        up: Math.random() > 0.5,
-      },
-      {
-        label: "Followers",
-        value: Math.floor(Math.random() * 500),
-        change: Math.floor(Math.random() * 21 - 10),
-        up: Math.random() > 0.5,
-      },
-      {
-        label: "Daily Earnings",
-        value: Math.floor(Math.random() * 2000),
-        change: Math.floor(Math.random() * 21 - 10),
-        up: Math.random() > 0.5,
-      },
-      {
-        label: "Products",
-        value: Math.floor(Math.random() * 100),
-        change: Math.floor(Math.random() * 21 - 10),
-        up: Math.random() > 0.5,
-      },
-    ],
-    developmentActivity: {
-      chartData: Array.from({ length: 5 }, (_, i) => ({
-        date: `2024-11-0${i + 1}`,
-        value: Math.floor(Math.random() * 100),
-      })),
-      tableData: Array.from({ length: 7 }, (_, i) => ({
-        user: getRandomName(), // Use the random name generator here
-        commitMessage: `Commit message ${i}`,
-        date: `2024-11-0${i + 1}`,
-        actions: ["delete"],
-      })),
-    },
-    chartSections: {
-      feedbacks: Array.from({ length: 4 }, (_, i) => ({
-        id: i + 1,
-        user: getRandomName(), // Use the random name generator here
-        comment: `Feedback comment ${i + 1}`,
-        rating: Math.floor(Math.random() * 5) + 1,
-        time: `${Math.floor(Math.random() * 24)} hours ago`,
-      })),
-      profits: [
-        { date: "Mon", profit: Math.floor(Math.random() * 3000) },
-        { date: "Tue", profit: Math.floor(Math.random() * 3000) },
-        { date: "Wed", profit: Math.floor(Math.random() * 3000) },
-        { date: "Thu", profit: Math.floor(Math.random() * 3000) },
-        { date: "Fri", profit: Math.floor(Math.random() * 3000) },
-        { date: "Sat", profit: Math.floor(Math.random() * 3000) },
-        { date: "Sun", profit: Math.floor(Math.random() * 3000) },
-      ],
-      revenue: [
-        { name: "Profit", value: Math.floor(Math.random() * 100) },
-        { name: "Cost", value: Math.floor(Math.random() * 100) },
-      ],
-      sales: [
-        { name: "North America", value: Math.floor(Math.random() * 50) },
-        { name: "Europe", value: Math.floor(Math.random() * 50) },
-        { name: "Asia", value: Math.floor(Math.random() * 50) },
-        { name: "South America", value: Math.floor(Math.random() * 50) },
-      ],
-    },
-  };
+// Handle login with token storage and error handling
+function* handleLogin(action: ReturnType<typeof loginRequest>) {
+  try {
+    yield put(setLoading(true));
+    const response: LoginResponse = yield call(
+      api.post,
+      urls.login(),
+      action.payload
+    );
 
-  yield put(setDashboardData(newData));
-  yield put(setLoading(false));
+    localStorage.setItem("accessToken", response.data.accessToken);
+    localStorage.setItem("refreshToken", response.data.refreshToken);
+
+    yield put({
+      type: LOGIN_SUCCESS,
+      payload: {
+        accessToken: response.data.accessToken,
+        refreshToken: response.data.refreshToken,
+      },
+    });
+
+    window.location.href = "/";
+  } catch (error: any) {
+    console.error("Login error:", error);
+    yield put({
+      type: LOGIN_FAILURE,
+      payload: error.message || "Login failed",
+    });
+  } finally {
+    yield put(setLoading(false));
+  }
 }
 
-// Watcher saga
+function* handleRegister(action: ReturnType<typeof registerRequest>) { 
+   try {
+     yield put(setLoading(true));
+     const response: RegisterResponse = yield call(
+       api.post,
+       urls.register(),
+       action.payload
+     );
+
+     console.log(response);
+
+     window.location.href = "/login";
+   } catch (error: any) {
+     console.error("Register error:", error.response);
+     yield put({
+       type: REGISTER_FAILURE,
+       payload: error?.response?.data?.error || "Registration failed",
+     });
+   } finally {
+     yield put(setLoading(false));
+   }
+}
+
+function* handleGetProfile() {
+    try {
+      yield put(setLoading(true));
+      const response: ProfileResponse = yield call(
+        api.get,
+        urls.getProfile(),
+      );
+      console.log(response);
+      yield put(setProfileData(response.data));  
+    } catch (error: any) {
+      console.error("Register error:", error.response);
+    } finally {
+      yield put(setLoading(false));
+    }
+} 
+
+// Watcher sagas
 export function* watchGenerateNewData() {
-  yield takeEvery(GENERATE_NEW_DATA, handleGenerateNewData);
+  yield takeEvery(GENERATE_NEW_DATA, fetchDashboardDataSaga);
 }
 
 export function* watchDashboardData() {
   yield takeLatest(FETCH_DASHBOARD_DATA, fetchDashboardDataSaga);
 }
 
+export function* watchGetProfile() {
+  yield takeLatest(GET_PROFILE_REQUEST, handleGetProfile);
+}
+
+export function* watchLogin() {
+  yield takeLatest(LOGIN_REQUEST, handleLogin);
+}
+
+export function* watchRegister() {
+  yield takeLatest(REGISTER_REQUEST, handleRegister);
+}
+
+// Root saga
 export function* rootSaga() {
-  yield all([watchDashboardData(), watchGenerateNewData()]);
+  yield all([watchDashboardData(), watchGenerateNewData(), watchLogin(), watchRegister(), watchGetProfile()]);
 }

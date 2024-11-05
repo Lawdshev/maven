@@ -5,9 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { fetchDashboardData } from './redux/actions';
-
- store.dispatch(fetchDashboardData());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -36,7 +36,12 @@ export interface DashboardData {
 export interface DashboardState {
   data: DashboardData | null;
   loading: boolean;
+  profile: ProfileData | null;
   error: string | null;
+  auth: {
+    accessToken: string | null;
+    refreshToken: string | null;
+  }
 }
 
 export interface Feedback {
@@ -45,4 +50,9 @@ export interface Feedback {
   comment: string;
   rating: number;
   time: string;
+}
+
+export interface ProfileData { 
+  username: string;
+  email: string;
 }
